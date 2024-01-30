@@ -1,0 +1,153 @@
+<!-- Display and update account information -->
+{% extends "base.html" %} {% block title %}Account Settings{% endblock %} {%
+block content %} {% if user %}
+<!-- Display user information if logged in -->
+<h2 class="display-4">My Information</h2>
+<hr />
+{% else %}
+<!-- Display a message for users not logged in -->
+<div class="alert alert-warning" role="alert">
+  Currently not logged in.
+  <a href="/auth/login" class="alert-link">Log in</a> or
+  <a href="/auth/signup" class="alert-link">Sign up</a> here.
+</div>
+{% endif %}
+<!-- Button to return home -->
+<div class="btn-group" role="group" aria-label="Button group">
+  <button
+    type="button"
+    class="btn btn-secondary border"
+    onclick="location.href='/views'"
+  >
+    Return Home
+  </button>
+</div>
+<br />
+<br />
+{% if user %}
+<!-- Display user details with update options -->
+<ul class="list-group">
+  <li class="list-group-item" style="width: 50%">
+    <!-- Username with update option -->
+    <b>Username:</b> {{ user['username'] }}
+    <div style="position: absolute; right: 10px; top: 5px">
+      <button
+        type="button"
+        class="btn btn-link"
+        data-toggle="collapse"
+        data-target="#updateUsername"
+      >
+        Update
+      </button>
+    </div>
+    <!-- Update form for username -->
+    <div class="collapse" id="updateUsername">
+      <hr />
+      <form action="/auth/update_account" method="POST">
+        <div class="form-group" style="width: 25%">
+          <label for="newUsername">Enter new Username:</label>
+          <input
+            type="text"
+            name="newUsername"
+            id="newUsername"
+            placeholder="Your Username"
+            min="8"
+            max="16"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </li>
+  <li class="list-group-item" style="width: 50%">
+    <!-- User email with update option -->
+    <b>email:</b> {{ user['email'] }}
+    <div style="position: absolute; right: 10px; top: 5px">
+      <button
+        type="button"
+        class="btn btn-link"
+        data-toggle="collapse"
+        data-target="#updateEmail"
+      >
+        Update
+      </button>
+    </div>
+    <!-- Update form for email -->
+    <div class="collapse" id="updateEmail">
+      <hr />
+      <form action="/auth/update_account" method="POST">
+        <div class="form-group" style="width: 25%">
+          <label for="newEmail">Enter new email:</label>
+          <input
+            type="email"
+            name="newEmail"
+            id="newEmail"
+            placeholder="example@domain.com"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </li>
+  <li class="list-group-item" style="width: 50%">
+    <!-- Password update option -->
+    <b>Password</b>
+    <div style="position: absolute; right: 10px; top: 5px">
+      <button
+        type="button"
+        class="btn btn-link"
+        data-toggle="collapse"
+        data-target="#updatePassword"
+      >
+        Update
+      </button>
+    </div>
+    <!-- Update form for password -->
+    <div class="collapse" id="updatePassword">
+      <hr />
+      <form action="/auth/update_account" method="POST">
+        <div class="form-group" style="width: 25%">
+          <label for="comfirmPassword">Enter current password:</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            min="8"
+            max="16"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </li>
+</ul>
+<br />
+<!-- Buttons for logout and account deletion -->
+<div class="btn-group" role="group" aria-label="Button group">
+  <button
+    type="button"
+    class="btn btn-warning border"
+    onclick="location.href='/auth/logout'"
+  >
+    Log out
+  </button>
+  <button
+    type="button"
+    class="btn btn-danger border"
+    data-toggle="collapse"
+    data-target="#deleteAccount"
+  >
+    Delete Account
+  </button>
+  <!-- Confirmation button for account deletion -->
+  <div class="collapse" id="deleteAccount">
+    <button
+      type="button"
+      class="btn btn-danger border"
+      onclick="location.href='/auth/delete_account'"
+    >
+      Confirm Delete
+    </button>
+  </div>
+</div>
+{% endif %} {% endblock %}

@@ -1,0 +1,106 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+{% block content %}
+<!-- Prompt sign in for guests -->
+{% if not user %}
+<div class="alert alert-warning" role="alert">
+    Currently not logged in. <a href="/auth/login" class="alert-link">Log in</a> or
+    <a href="/auth/signup" class="alert-link">Sign up</a> here.
+  </div>
+{% endif %}
+<!-- Page heading -->
+<h2 class="display-4">Home</h2>
+<hr>
+{% if user %}
+<div class="container">
+    <h3>Welcome, {{ user['username'] }}!</h3>
+</div>
+<hr>
+<!-- Navigation buttons -->
+<div style="display: flex; justify-content: center; align-items: center">
+    <div class="btn-group" role="group" aria-label="Button group">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="location.href='/views/dashboard'"
+        >
+          Your music library
+        </button>
+        <button
+          type="button"
+          class="btn btn-info"
+          onclick="location.href='/views/browse'"
+        >
+          Browse new music
+        </button>
+        {% if user['admin'] == 1 %} 
+  <button type="button" class="btn btn-warning" onclick="location.href='/views/change'">
+    Edit Site Data (Admin)
+  </button>
+  {% endif %}
+    </div>
+</div>
+
+<!-- Heading for guests-->
+{% else %}
+<div class="container">
+    <h3>Welcome, Guest!</h3>
+</div>
+<div style="display: flex; justify-content: center; align-items: center">
+    <button
+    type="button"
+    class="btn btn-info border"
+    onclick="location.href='/views/browse'"
+  >
+    Browse new music
+  </button>
+</div>
+{% endif %}
+<!-- Display featured song -->
+{% if featured_song %}
+<br>
+<h5>Current Featured Song: </h5>
+<div class="border p-3">
+    <div class="row">
+      <div class="col-md-6">
+        <ul class="list-unstyled">
+            <li><a href="{{ featured_song[5] }}" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                  <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/>
+                  </svg> Play song
+              </a></li>
+            <li><b>Title:</b> {{ featured_song[3] }}</li>
+            <li><b>By:</b> {{ featured_song[6] }}</li>
+            <li><b>Album:</b> {{ featured_song[7] }}</li>
+            <br>
+            <li><button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for('views.select_playlist', song_id=featured_song[0]) }}'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                  </svg> Add to playlist
+            </button></li>
+            
+        </div>
+        <div class="col-md-6 ml-auto">
+            <img
+                src="{{ featured_song[8] }}"
+                alt="Album Image"
+                class="img-fluid"
+                width="150"
+                height="150"
+                />
+        </div>
+    </div>
+</div>
+{% endif %}
+<br>
+<!-- Display website about message -->
+<div style="padding: 15px">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <h5>About</h5>
+        Welcome to our music storage and organization platform, where the rhythm of your music meets seamless organization. Dive into a personalized music experience by logging in, exploring extensive music data, and curating your playlists effortlessly. Our platform not only empowers you to create and manage playlists but also elevates your musical journey with tailored suggestions based on your playlists and liked songs library. Embrace the harmony of organized music discovery with our user-friendly interface, designed to enhance your connection with the tunes that resonate with you.
+      </li>
+    </ul>
+  </div>
+{% endblock %}

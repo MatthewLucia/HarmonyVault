@@ -1,0 +1,45 @@
+{% extends "base.html" %} 
+
+{% block title %}Select Playlist{% endblock %}
+
+{% block content %}
+<!-- Page heading -->
+<h2 class="display-4">Adding Song to Playlist</h2>
+<hr>
+<!-- Navigation button to return home -->
+<button type="button" class="btn btn-secondary" onclick="location.href='/views'">
+    Return home
+</button>
+<hr>
+{% if playlists %}
+<!-- Options for playlists -->
+<ul class="list-group">
+{% for playlist in playlists %}
+
+<li><button type="button" class="btn btn-light border" onclick="window.location.href='{{ url_for('views.add_song', playlist_id = playlist[0], song_id=song_id) }}'">
+
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="list-unstyled">
+                <h3>{{ playlist[2] }}</h3>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6 ml-auto">
+        <img
+        src="{{ playlist[4] }}"
+        alt="Playlist Image"
+        class="img-fluid"
+        width="100"
+        height="100"
+        />
+    </div>
+
+</button></li>
+<br>
+
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

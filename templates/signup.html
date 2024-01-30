@@ -1,0 +1,96 @@
+{% extends "base.html" %} 
+
+{% block title %}Sign Up{% endblock %} 
+
+{% block content %}
+<!-- Page heading -->
+<h2 class="display-4">Sign Up</h2>
+<hr />
+<!-- Nagivation buttons -->
+<div
+  class="btn-group"
+  role="group"
+  aria-label="Button group"
+  style="padding: 15px"
+>
+  <button
+    type="button"
+    class="btn btn-secondary border"
+    onclick="location.href='/views'"
+  >
+    Return Home
+  </button>
+  <button
+    type="button"
+    class="btn btn-warning border"
+    onclick="location.href='/auth/login'"
+  >
+    Login
+  </button>
+</div>
+<!-- Sign up form -->
+<form method="POST">
+  <div class="form-group" style="width: 25%">
+    <label for="username">Username</label>
+    <input
+      type="text"
+      class="form-control"
+      id="username"
+      name="username"
+      minlength="8"
+      maxlength="16"
+      placeholder="Required"
+      required
+    />
+  </div>
+  <div class="form-group" style="width: 25%">
+    <label for="email">Email Address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      name="email"
+      placeholder="Optional"
+      required
+    />
+  </div>
+  <div class="form-group" style="width: 25%">
+    <label for="password1">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password1"
+      name="password1"
+      minlength="8"
+      maxlength="16"
+      placeholder="Required"
+      required
+    />
+  </div>
+  <div class="form-group" style="width: 25%">
+    <label for="password2">Confirm Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password2"
+      name="password2"
+      minlength="8"
+      maxlength="16"
+      placeholder="Requried"
+      required
+    />
+  </div>
+  <div class="form-group" style="width: 25%">
+    <label for="date_of_birth">Date of Birth</label>
+    <input
+      type="date"
+      class="form-control"
+      id="date_of_birth"
+      max="2021-01-01"
+      name="date_of_birth"
+      required
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

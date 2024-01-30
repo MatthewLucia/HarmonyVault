@@ -1,0 +1,35 @@
+{% extends "base.html" %} 
+
+{% block title %}Create New Playlist{% endblock %} 
+
+{%block content %}
+<!-- Page heading -->
+<h2 class="display-4">Create Playlist</h2>
+<hr />
+<!-- Navigation button to return to dashboard -->
+<div class="btn-group" role="group" aria-label="Button group">
+  <button
+    type="button"
+    class="btn btn-secondary border"
+    onclick="location.href='/views/dashboard'"
+  >
+    Return to dashboard
+  </button>
+</div>
+<hr />
+<!-- Playlist creation form -->
+<form method="POST" action="/views/create_playlist">
+  <div class="form-group">
+    <label for="title">Playlist title:</label>
+    <input type="text" name="title" id="title" min="1" max="32" required />
+
+    <label for="description">Description:</label>
+    <input type="text" name="description" id="description" max="255" />
+
+    <label for="imageURL">Playlist cover image:</label>
+    <input type="text" name="imageURL" id="imageURL" />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %} 
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Page heading -->
+<h2 class="display-4">Library</h2>
+<hr>
+<div class="btn-group" role="group" aria-label="Button group">
+    <button
+      type="button"
+      class="btn btn-secondary border"
+      onclick="location.href='/views'"
+    >
+      Return Home
+    </button>
+    <button
+      type="button"
+      class="btn btn-warning border"
+      onclick="location.href='/views/create_playlist'"
+    >
+      Create new playlist
+    </button>
+</div>
+<hr>
+
+{% if playlists %}
+<!-- Display playlists -->
+<h4>Your playlists:</h4>
+<hr>
+{% for playlist in playlists %}
+<div class="playlist-container">
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="list-unstyled">
+                <li><b>Title:</b><br> {{ playlist[2] }}</li>
+                <li><b>Description:</b> {{ playlist[3] }}</li>
+                <br>
+                <li><button class="btn btn-primary" onclick="window.location.href='{{ url_for('views.playlist_songs', playlist_id=playlist[0]) }}'">
+                    View Playlist
+                </button>
+                </li>
+            </ul>
+        </div>
+    <div class="col-md-6 ml-auto">
+        <img
+        src="{{ playlist[4] }}"
+        alt="Playlist Image"
+        class="img-fluid"
+        width="200"
+        height="200"
+        />
+    </div>
+</div>
+</div>
+<hr>
+{% endfor %}
+{% endif %}
+{% endblock %}
